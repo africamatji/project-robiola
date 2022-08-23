@@ -18,6 +18,9 @@ Route::get('/', function () {
     return Inertia::render('Home', ['test' => 'working']);
 });
 
-Route::get('/about', function () {
-    return Inertia::render('About', ['about_us' => 'working']);
-});
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+    //return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';

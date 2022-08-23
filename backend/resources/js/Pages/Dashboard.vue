@@ -54,13 +54,16 @@
 <script>
 import { Link } from "@inertiajs/inertia-vue";
 export default {
-    name: "Home",
+    name: "Dashboard",
     components: {
         Link
     },
     data : () => ({
 
     }),
+    created() {
+        console.log('Dashboard');
+    }
 }
 </script>
 

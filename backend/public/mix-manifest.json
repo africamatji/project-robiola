@@ -2,6 +2,7 @@
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/favicon.ico": "/favicon.ico",
+    "/hot": "/hot",
     "/index.php": "/index.php",
     "/mix-manifest.json": "/mix-manifest.json",
     "/robots.txt": "/robots.txt"
