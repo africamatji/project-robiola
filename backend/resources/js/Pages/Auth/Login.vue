@@ -12,25 +12,24 @@
                         lazy-validation
                     >
                         <v-text-field
-                            v-model="name"
-                            :counter="10"
-                            :rules="nameRules"
-                            label="Name"
-                            required
-                        ></v-text-field>
-
-                        <v-text-field
-                            v-model="email"
-                            :rules="emailRules"
+                            v-model="formData.email"
+                            :rules="rules.emailRules"
                             label="E-mail"
                             required
                         ></v-text-field>
 
+                        <v-text-field
+                            v-model="formData.password"
+                            :rules="rules.required"
+                            label="Password"
+                            type="password"
+                            required
+                        ></v-text-field>
 
                         <v-btn
                             color="success"
                             class="mr-4"
-                            @click="validate"
+                            @click="submit"
                         >
                             Login
                         </v-btn>
@@ -39,32 +38,26 @@
             </v-row>
         </v-container>
     </div>
-
 </template>
 
 <script>
 export default {
     name: "Login",
     data: () => ({
+        formData: {
+            email: '',
+            password:'',
+        },
         valid: true,
-        name: '',
-        nameRules: [
-            v => !!v || 'Name is required',
-            v => (v && v.length <= 10) || 'Name must be less than 10 characters',
-        ],
-        email: '',
-        emailRules: [
-            v => !!v || 'E-mail is required',
-            v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-        ],
-        select: null,
-        items: [
-            'Item 1',
-            'Item 2',
-            'Item 3',
-            'Item 4',
-        ],
-        checkbox: false,
+        rules: {
+            emailRules: [
+                v => !!v || 'E-mail is required',
+                v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+            ],
+            required: [
+                v => !!v || 'Password is required',
+            ],
+        },
     }),
 
     methods: {
@@ -76,6 +69,11 @@ export default {
         },
         resetValidation () {
             this.$refs.form.resetValidation()
+        },
+        submit () {
+            if (this.$refs.form.validate()) {
+                this.$inertia.post('/login', this.formData);
+            }
         },
     },
 }
